@@ -18,6 +18,17 @@ import java.util.List;
 
 public class NewsQueryHelper {
 
+    static private final String KEY_RESPONSE = "response";
+    static private final String KEY_RESULTS = "results";
+    static private final String KEY_WEBTITLE = "webTitle";
+    static private final String KEY_SECTIONNAME = "sectionName";
+    static private final String KEY_FIELDS = "fields";
+    static private final String KEY_BYLINE = "byline";
+    static private final String KEY_WEBPUBLICATIONDATE = "webPublicationDate";
+    static private final String KEY_WEBURL = "webUrl";
+
+
+
     public NewsQueryHelper(){
     }
 
@@ -74,7 +85,7 @@ public class NewsQueryHelper {
             httpURLConnection.setReadTimeout(10000 /*milliseconds*/);
             httpURLConnection.setConnectTimeout(15000 /*milliseconds*/);
             httpURLConnection.connect();
-            if(httpURLConnection.getResponseCode() == 200){
+            if(httpURLConnection.getResponseCode() == httpURLConnection.HTTP_OK){
                 inputStream = httpURLConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             }
@@ -122,22 +133,24 @@ public class NewsQueryHelper {
 
         try {
             JSONObject feedsJsonObject = new JSONObject(jsonResponse);
-            JSONObject responseJsonObject = feedsJsonObject.optJSONObject("response");
-            JSONArray results = responseJsonObject.getJSONArray("results");
+            JSONObject responseJsonObject = feedsJsonObject.optJSONObject(KEY_RESPONSE);
+            JSONArray results = responseJsonObject.getJSONArray(KEY_RESULTS);
             JSONObject newsFeedJsonObject;
+            JSONObject fields;
             String articleTitle;
             String sectionName;
-            //String authorName;
+            String authorName;
             String datePublished;
             String articleUrl;
             for(int i = 0, k = results.length(); i < k; i++){
                 newsFeedJsonObject = results.getJSONObject(i);
-                articleTitle = newsFeedJsonObject.optString("webTitle");
-                sectionName = newsFeedJsonObject.optString("sectionName");
-                //authorName = newsFeedJsonObject.optString();
-                datePublished = newsFeedJsonObject.optString("webPublicationDate");
-                articleUrl = newsFeedJsonObject.optString("webUrl");
-                newsFeeds.add(new NewsFeed(articleTitle, sectionName, null, datePublished, articleUrl));
+                articleTitle = newsFeedJsonObject.optString(KEY_WEBTITLE);
+                sectionName = newsFeedJsonObject.optString(KEY_SECTIONNAME);
+                fields = newsFeedJsonObject.optJSONObject(KEY_FIELDS);
+                authorName = fields.optString(KEY_BYLINE);
+                datePublished = newsFeedJsonObject.optString(KEY_WEBPUBLICATIONDATE);
+                articleUrl = newsFeedJsonObject.optString(KEY_WEBURL);
+                newsFeeds.add(new NewsFeed(articleTitle, sectionName, authorName, datePublished, articleUrl));
             }
         } catch (JSONException e) {
             e.printStackTrace();

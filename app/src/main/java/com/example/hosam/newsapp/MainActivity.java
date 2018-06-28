@@ -21,7 +21,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<NewsFeed>>{
 
     static private final int NEWSFEED_LOADER_ID = 1;
-    static private final String GUARDIAN_SAMPLE_URL = "https://content.guardianapis.com/search?q=%22salah%22&section=football&api-key=43a0b7b9-2ee9-4661-8ad9-2f7cfe258694";
+    static private final String GUARDIAN_SAMPLE_URL = "https://content.guardianapis.com/search?q=%22salah%22&section=football&api-key=43a0b7b9-2ee9-4661-8ad9-2f7cfe258694&show-fields=byline";
     ProgressBar loadingProgressBar;
     TextView emptyListTextView;
     ListView newsListView;

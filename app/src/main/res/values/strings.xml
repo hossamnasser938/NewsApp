@@ -3,7 +3,7 @@
 
     <string name="no_internet">No Internet Connection</string>
 
-    <string name="no_news">No News Found</string>
+    <string name="no_news">No news found, please check your internet connection or come back later</string>
 
     <string name="no_author">No author name available</string>
 

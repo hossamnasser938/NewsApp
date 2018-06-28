@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public Loader<List<NewsFeed>> onCreateLoader(int id, Bundle args) {
 
-        return new NewsFeedsLoader(getApplicationContext(), GUARDIAN_SAMPLE_URL);
+        return new NewsFeedsLoader(this, GUARDIAN_SAMPLE_URL);
 
     }
 

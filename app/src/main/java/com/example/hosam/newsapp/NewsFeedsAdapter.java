@@ -1,6 +1,8 @@
 package com.example.hosam.newsapp;
 
 import android.content.Context;
+import android.graphics.Paint;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +33,27 @@ public class NewsFeedsAdapter extends ArrayAdapter<NewsFeed> {
         TextView authorNameView = listItemView.findViewById(R.id.author_name_text);
         TextView datePublishedView = listItemView.findViewById(R.id.date_published_text);
 
-        articleTitleView.setText(currentNewsFeed.getArticleTitle());
-        sectionNameView.setText(currentNewsFeed.getSectionName());
-        authorNameView.setText(currentNewsFeed.getAuthorName());
-        datePublishedView.setText(currentNewsFeed.getDatePublished());
+        String articleTitle = currentNewsFeed.getArticleTitle();
+        String sectionName = currentNewsFeed.getSectionName();
+        String authorName = currentNewsFeed.getAuthorName();
+        String datePublished = currentNewsFeed.getDatePublished();
+
+        articleTitleView.setPaintFlags(articleTitleView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+        articleTitleView.setText(articleTitle);
+        sectionNameView.setText(sectionName);
+
+        if(authorName == null || TextUtils.isEmpty(authorName)){
+            authorNameView.setText(R.string.no_author);
+        }else{
+            authorNameView.setText(authorName);
+        }
+
+        if(datePublished == null || TextUtils.isEmpty(datePublished)){
+            datePublishedView.setText(R.string.no_date);
+        }else{
+            datePublishedView.setText(datePublished);
+        }
 
         return listItemView;
 

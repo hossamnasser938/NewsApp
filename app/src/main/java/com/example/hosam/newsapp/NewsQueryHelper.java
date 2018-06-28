@@ -36,9 +36,7 @@ public class NewsQueryHelper {
             e.printStackTrace();
         }
 
-        List<NewsFeed> newsFeeds = extractNewsFeedsFromJson(jsonResponse);
-
-        return newsFeeds;
+        return extractNewsFeedsFromJson(jsonResponse);
 
     }
 
@@ -123,7 +121,8 @@ public class NewsQueryHelper {
         List<NewsFeed> newsFeeds = new ArrayList<>();
 
         try {
-            JSONObject responseJsonObject = new JSONObject(jsonResponse);
+            JSONObject feedsJsonObject = new JSONObject(jsonResponse);
+            JSONObject responseJsonObject = feedsJsonObject.optJSONObject("response");
             JSONArray results = responseJsonObject.getJSONArray("results");
             JSONObject newsFeedJsonObject;
             String articleTitle;

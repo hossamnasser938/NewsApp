@@ -147,7 +147,11 @@ public class NewsQueryHelper {
                 articleTitle = newsFeedJsonObject.optString(KEY_WEBTITLE);
                 sectionName = newsFeedJsonObject.optString(KEY_SECTIONNAME);
                 fields = newsFeedJsonObject.optJSONObject(KEY_FIELDS);
-                authorName = fields.optString(KEY_BYLINE);
+                if(fields != null){
+                    authorName = fields.optString(KEY_BYLINE);
+                }else{
+                    authorName = null;
+                }
                 datePublished = newsFeedJsonObject.optString(KEY_WEBPUBLICATIONDATE);
                 articleUrl = newsFeedJsonObject.optString(KEY_WEBURL);
                 newsFeeds.add(new NewsFeed(articleTitle, sectionName, authorName, datePublished, articleUrl));

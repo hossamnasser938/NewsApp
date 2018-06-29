@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
         uriBuilder.appendQueryParameter("format", "json");
+        uriBuilder.appendQueryParameter("show-fields", "byline");
         uriBuilder.appendQueryParameter("api-key", MY_API_KEY);
         uriBuilder.appendQueryParameter(getString(R.string.settings_section_key), category);
         uriBuilder.appendQueryParameter(getString(R.string.settings_topic_key), topic);
